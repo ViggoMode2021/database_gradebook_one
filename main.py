@@ -16,10 +16,15 @@ def add_new_user():
     result = cursor.fetchone()
 
     if int(result[0]) > 0:
-        pass
+        error["text"] = "Error: Username already exists."
+    else:
+        error["text"] = "Added new user"
+        cursor.execute("INSERT INTO info(estudiante,nota) VALUES(?,?)", (new_username, new_grade))
+        db.commit()
 
-error = Message(text = "Enter Username:")
-error.place(x = 30, y = 10)
+error = Message(text = "Agregar alumno/a:")
+error.place(x = 30, y = 0)
+error.config(padx=0)
 
 label_1 = Label(text = "Escribir estudiante:")
 label_1.place(x = 30, y = 40)
